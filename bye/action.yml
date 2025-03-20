@@ -1,0 +1,25 @@
+name: "By by World"
+description: "bla bla bla"
+inputs:
+  data: # id of input
+    description: "some data"
+    required: true
+    default: "jodå"
+runs:
+  using: "composite"
+  steps:
+    - name: Set Greeting
+      run: echo "By $INPUT_WHO_TO_GREET."
+      shell: bash
+      env:
+        INPUT_WHO_TO_GREET: ${{ inputs.data }}
+
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Run test.sh
+      run: test.sh
+      shell: bash
